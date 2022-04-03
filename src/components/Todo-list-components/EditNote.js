@@ -53,11 +53,21 @@ export const EditNote = ({props}) => {
                             token : localStorage.token
                     },
                     body : JSON.stringify(note)
-                }).then(()=>{
-                    setNote({})
-                    noteEdited();
-                    getNotes();
-                    handleEditNoteClose()
+                }).then((response)=>{
+
+                    
+                    if(response.status === 403){
+                        window.location ="/";
+                    }else{
+                        setNote({})
+                        noteEdited();
+                        getNotes();
+                        handleEditNoteClose()
+                    }
+
+                    
+
+                    
                 })
             } catch (error) {
                 console.error(error.message);

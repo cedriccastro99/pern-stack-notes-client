@@ -46,14 +46,20 @@ export const CreateNotes = ({props}) => {
                             token : localStorage.token
                     },
                     body : JSON.stringify(data)
-                }).then(()=>{
-                    setNote({
-                        title : "",
-                        description : ""
-                    })
-                    noteCreated();
-                    getNotes();
-                    handleCreateNoteClose()
+                }).then(async(response)=>{
+
+                    if(response.status === 403){
+                        window.location ="/";
+                    }else{
+                        setNote({
+                            title : "",
+                            description : ""
+                        })
+                        noteCreated();
+                        getNotes();
+                        handleCreateNoteClose()
+                    }
+
                 })
             } catch (error) {
                 console.error(error.message);

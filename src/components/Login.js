@@ -1,9 +1,12 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { Link } from "react-router-dom";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { AuthContext } from "../ContextApi/AuthContext";
 
-export const Login = ({setAuth}) =>{
+export const Login = () =>{
+
+    const {setAuth} = useContext(AuthContext);
 
     const boxStyle={
         width: 455,
@@ -43,15 +46,12 @@ export const Login = ({setAuth}) =>{
 
             if(parseRes.token){
                 toast.success('Login successfully!');
-                setTimeout(()=>{
-                    localStorage.setItem("token",parseRes.token);
-                    setAuth(true);
-                },1000)
+                localStorage.setItem("token",parseRes.token);
+                setAuth(true);
             }else{
                 setAuth(false);
                 toast.error(parseRes)
             }
-            
             
         } catch (error) {
             console.error(error.message);
@@ -68,7 +68,7 @@ export const Login = ({setAuth}) =>{
                             <input className="text-center form-control my-3" value={email}  style={inputStyle} onChange={(e)=>{ onChange(e) }} type="email" name="email" placeholder="Enter Email" />
                             <input className="text-center form-control mb-3" value={password}  style={inputStyle} onChange={(e)=>{ onChange(e) }} type="password" name="password" placeholder="Enter Password" />
                             <button className="btn btn-success mb-1">Login</button>
-                            <ToastContainer />
+                            {/* <ToastContainer /> */}
                         </form>
                     </div>
                 </div>

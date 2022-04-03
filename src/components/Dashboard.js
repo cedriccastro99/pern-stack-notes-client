@@ -1,9 +1,13 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
+import { Navigate } from "react-router-dom";
+import { AuthContext } from "../ContextApi/AuthContext";
 import NoteContextProvider from "../ContextApi/NoteContext";
 import Navbar from "./Navbar";
 import NotesLists from "./NotesLists";
 
-export const Dashboard = ({setAuth}) =>{
+export const Dashboard = () =>{
+
+    const {setAuth} = useContext(AuthContext);
 
     const [user,setUser] = useState();
 

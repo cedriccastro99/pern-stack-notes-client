@@ -2,7 +2,7 @@ import React,{useContext, useState} from 'react'
 import {AiOutlineEdit,AiFillDelete,AiFillFileAdd} from 'react-icons/ai'
 import { NoteContext } from '../../ContextApi/NoteContext';
 import { CreateNotes } from './CreateNotes';
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { EditNote } from './EditNote';
 
@@ -39,9 +39,13 @@ export default function ListContainer() {
                             token : localStorage.token
                     },
                     body : JSON.stringify(note)
-                }).then(()=>{
-                    deleteNote();
-                    getNotes();
+                }).then((response)=>{
+                    if(response.status === 403){
+                        window.location ="/";
+                    }else{
+                        deleteNote();
+                        getNotes();
+                    }
                 })
             } catch (error) {
                 console.error(error.message);
@@ -95,7 +99,6 @@ export default function ListContainer() {
                 ''
             }
         </div>
-        <ToastContainer/>
         <CreateNotes props={{createNote,handleCreateNoteClose,noteCreated,missingField}}/>
         <EditNote props={{selectedNote,editNote,handleEditNoteClose,noteEdited,missingField}}/>
     </>
