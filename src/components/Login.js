@@ -1,6 +1,7 @@
 import React, { useContext, useState } from "react";
+import { ToastContainer } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { AuthContext } from "../ContextApi/AuthContext";
 
@@ -68,7 +69,6 @@ export const Login = () =>{
                             <input className="text-center form-control my-3" value={email}  style={inputStyle} onChange={(e)=>{ onChange(e) }} type="email" name="email" placeholder="Enter Email" />
                             <input className="text-center form-control mb-3" value={password}  style={inputStyle} onChange={(e)=>{ onChange(e) }} type="password" name="password" placeholder="Enter Password" />
                             <button className="btn btn-success mb-1">Login</button>
-                            {/* <ToastContainer /> */}
                         </form>
                     </div>
                 </div>
@@ -76,6 +76,7 @@ export const Login = () =>{
                     <p className="fst-italic fw-light" >Need an account? <Link to="/register">Register</Link></p>
                 </div>
             </div>
+            <ToastContainer/>
         </>
     )
 }

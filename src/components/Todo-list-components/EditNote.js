@@ -54,7 +54,6 @@ export const EditNote = ({props}) => {
                     },
                     body : JSON.stringify(note)
                 }).then((response)=>{
-
                     
                     if(response.status === 403){
                         window.location ="/";
@@ -64,9 +63,6 @@ export const EditNote = ({props}) => {
                         getNotes();
                         handleEditNoteClose()
                     }
-
-                    
-
                     
                 })
             } catch (error) {

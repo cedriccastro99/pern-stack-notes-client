@@ -1,10 +1,11 @@
 import React,{useContext, useState} from 'react'
-import {AiOutlineEdit,AiFillDelete,AiFillFileAdd} from 'react-icons/ai'
+import {AiFillFileAdd} from 'react-icons/ai'
 import { NoteContext } from '../../ContextApi/NoteContext';
 import { CreateNotes } from './CreateNotes';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { EditNote } from './EditNote';
+import { Note } from './Note';
 
 export default function ListContainer() {
 
@@ -64,28 +65,8 @@ export default function ListContainer() {
             {
                 !isLoading?
                     notes?.length !== 0?
-                        notes?.map((note)=>
-                            <>
-                                <div key={note?.index}>
-                                    <div className="card mx-3 my-3 border-secondary shadow">
-                                        <div className="card-header">
-                                            <h5 className="card-title">{note?.note_title}</h5>
-                                        </div>
-                                        <div className="card-body pb-0">
-                                            <p className="card-text mb-5">{note?.note_description}</p>
-                                            <div className='text-muted d-flex justify-content-end'>
-                                                <p className='me-2' style={{fontSize:14}}>Created : {`${new Date(Date.parse(note?.date_created)).toLocaleString('en-US', { hour12: true })}`}</p>
-                                                <p style={{fontSize:14}}> | </p>
-                                                <p className='ms-2' style={{fontSize:14}}>Updated : {`${new Date(Date.parse(note?.date_updated)).toLocaleString('en-US', { hour12: true })}` === 'Invalid Date' ? '---' : `${new Date(Date.parse(note?.date_updated)).toLocaleString('en-US', { hour12: true })}`}</p>
-                                            </div>
-                                        </div>
-                                        <div className="card-footer d-flex justify-content-end">
-                                            <button className="btn btn-primary me-2 text-center" onClick={()=>{editSelectedNote(note)}}><AiOutlineEdit/> Edit</button>
-                                            <button className="btn btn-danger" onClick={()=>{deleteSelectedNote(note)}}><AiFillDelete/>Delete</button>
-                                        </div>
-                                    </div>                
-                                </div>
-                            </>
+                        notes?.map((note,index)=>
+                            <Note key={index} note={note} editSelectedNote={editSelectedNote} deleteSelectedNote={deleteSelectedNote}/>
                         )
                     :
                         <>

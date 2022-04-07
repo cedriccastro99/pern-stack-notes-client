@@ -1,6 +1,8 @@
 import React, { useContext, useState } from "react";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../ContextApi/AuthContext";
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export const Register = () =>{
 
@@ -43,8 +45,14 @@ export const Register = () =>{
 
             const parseRes = await response.json();
 
-            localStorage.setItem("token",parseRes.token);
-            setAuth(true);
+            if(parseRes.token){
+                toast.success('Register successfully!');
+                localStorage.setItem("token",parseRes.token);
+                setAuth(true);
+            }else{
+                toast.error(parseRes);
+            }
+
             
         } catch (error) {
             console.error(error.message);

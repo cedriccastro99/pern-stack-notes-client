@@ -46,7 +46,7 @@ export const CreateNotes = ({props}) => {
                             token : localStorage.token
                     },
                     body : JSON.stringify(data)
-                }).then(async(response)=>{
+                }).then((response)=>{
 
                     if(response.status === 403){
                         window.location ="/";
